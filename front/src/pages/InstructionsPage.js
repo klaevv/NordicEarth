@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-import "./InstructionsPage.scss";
-import Header from "../Header";
+import './InstructionsPage.scss'
+import Header from '../Header'
 
 /* eslint-disable max-len */
 
@@ -18,7 +18,7 @@ function InstructionsPage() {
               Download height data (from your local mapping agency, probably).
             </li>
             <li>
-              Download satellite data (from your local mapping agency, or{" "}
+              Download satellite data (from your local mapping agency, or{' '}
               <a href="https://apps.sentinel-hub.com/eo-browser/">ESA</a>).
             </li>
           </ol>
@@ -43,15 +43,15 @@ function InstructionsPage() {
               GDAL can convert and manipulate all kinds of geographical data.
             </li>
             <li>
-              Download GDAL{" "}
+              Download GDAL{' '}
               <a href="https://gdal.org/download.html#binaries">here</a>.
             </li>
             <li>
-              To get an overview of all the programs contained inside GDAL check{" "}
+              To get an overview of all the programs contained inside GDAL check{' '}
               <a href="https://gdal.org/programs/index.html">here</a>.
             </li>
             <li>
-              It can read <strong>many</strong>{" "}
+              It can read <strong>many</strong>{' '}
               <a href="https://gdal.org/drivers/raster/index.html">
                 data formats
               </a>
@@ -105,7 +105,7 @@ function InstructionsPage() {
               <strong>
                 -srcwin start_x_coordinate start_y_coordinate
                 num_output_pixels_x num_output_pixels_y tells
-              </strong>{" "}
+              </strong>{' '}
               where to start extracting height values (using the coordinate
               system that the source file is using), and how many height values
               to extract in the x and y direction.
@@ -158,7 +158,7 @@ function InstructionsPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default InstructionsPage;
+export default InstructionsPage
