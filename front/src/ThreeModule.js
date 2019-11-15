@@ -1,34 +1,34 @@
-import * as THREE from "three";
+import * as THREE from 'three';
 
 const defaultCoordinate = [91250, 6973750];
 
 const tilesets = [
   {
-    id: "sweden",
+    id: 'sweden',
     minX: 600000,
     maxX: 800000,
     minY: 6400000,
     maxY: 6700000,
     scale: 6000,
-    text: "Russian submarine"
+    text: 'Russian submarine'
   },
   {
-    id: "norway",
+    id: 'norway',
     minX: 91250,
     maxX: 100000,
     minY: 6973750,
     maxY: 7100000,
     scale: 2000,
-    text: "Molde"
+    text: 'Molde'
   },
   {
-    id: "denmark",
+    id: 'denmark',
     minX: 306148,
     maxX: 330000,
     minY: 6170538,
     maxY: 6200000,
     scale: 2000,
-    text: "Roskilde"
+    text: 'Roskilde'
   }
 ];
 
@@ -123,13 +123,13 @@ export default class ThreeModule {
     this.resizeHandler = this.resizeHandler.bind(this);
 
     // Attach the resize handler function to the event
-    window.addEventListener("resize", this.resizeHandler, false);
+    window.addEventListener('resize', this.resizeHandler, false);
 
     // Bind the keyborard handler function before using it
     this.keyboardHandler = this.keyboardHandler.bind(this);
 
     // Attach the keyboard handler function to the event
-    window.addEventListener("keydown", this.keyboardHandler, false);
+    window.addEventListener('keydown', this.keyboardHandler, false);
 
     // Uncomment this code to render three lines on the screen, each describing the x, y and z axes
     // const helper = new THREE.AxesHelper(1000);
@@ -243,7 +243,7 @@ export default class ThreeModule {
 
     const billboardPixelHeight = 66;
     const billboardLineWidth = 8;
-    const billboardFont = "bold 40px Helvetica";
+    const billboardFont = 'bold 40px Helvetica';
     const billboardPixelWidthPadding = 60;
     const billboardPixelMinimumWidth = 140;
 
@@ -256,8 +256,8 @@ export default class ThreeModule {
     const billboardGeometryWidth = textureWidth * textureScale;
     const billboardGeometryHeight = textureHeight * textureScale;
 
-    this.textureCanvas = document.createElement("canvas");
-    this.ctx = this.textureCanvas.getContext("2d");
+    this.textureCanvas = document.createElement('canvas');
+    this.ctx = this.textureCanvas.getContext('2d');
     this.textureCanvas.width = textureWidth;
     this.textureCanvas.height = textureHeight;
 
@@ -271,7 +271,7 @@ export default class ThreeModule {
 
     // set background color to black
     // NB color info is reused as alpha mask (black = transparent)
-    this.ctx.fillStyle = "black";
+    this.ctx.fillStyle = 'black';
     this.ctx.fillRect(
       0,
       0,
@@ -279,12 +279,12 @@ export default class ThreeModule {
       this.textureCanvas.height
     );
 
-    this.ctx.textAlign = "center";
-    this.ctx.textBaseline = "middle";
+    this.ctx.textAlign = 'center';
+    this.ctx.textBaseline = 'middle';
 
     // set text color to white
     // NB color info is reused as alpha mask (white = opaque)
-    this.ctx.fillStyle = "white";
+    this.ctx.fillStyle = 'white';
     this.ctx.font = billboardFont;
     this.ctx.fillText(
       this.text,
@@ -302,7 +302,7 @@ export default class ThreeModule {
 
     // draw border onto billboard
     this.ctx.lineWidth = billboardLineWidth;
-    this.ctx.strokeStyle = "white";
+    this.ctx.strokeStyle = 'white';
     this.ctx.strokeRect(
       this.textureCanvas.width / 2 - billboardPixelWidth / 2,
       this.textureCanvas.height / 2 - billboardPixelHeight / 2,
@@ -388,28 +388,28 @@ export default class ThreeModule {
 
   keyboardHandler(keyboardEvent) {
     switch (keyboardEvent.key) {
-      case "ArrowDown":
+      case 'ArrowDown':
         this.camera.rotateX(ROTATION_SPEED);
         break;
-      case "ArrowUp":
+      case 'ArrowUp':
         this.camera.rotateX(-ROTATION_SPEED);
         break;
-      case "ArrowLeft":
+      case 'ArrowLeft':
         this.camera.rotateZ(ROTATION_SPEED);
         break;
-      case "ArrowRight":
+      case 'ArrowRight':
         this.camera.rotateZ(-ROTATION_SPEED);
         break;
-      case "q":
+      case 'q':
         this.speed += ACCELERATION;
         break;
-      case "a":
+      case 'a':
         this.speed -= ACCELERATION;
         break;
-      case "z":
+      case 'z':
         this.camera.rotateY(ROTATION_SPEED);
         break;
-      case "x":
+      case 'x':
         this.camera.rotateY(-ROTATION_SPEED);
         break;
       default:
