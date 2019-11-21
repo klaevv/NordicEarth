@@ -3,7 +3,6 @@
 import * as THREE from 'three'
 
 const defaultCoordinate = [91250, 6973750]
-
 const tilesets = [
   {
     id: 'sweden',
@@ -33,9 +32,15 @@ const tilesets = [
     text: 'Roskilde'
   }
 ]
-
 // tile definition, depends on the topography and texture input data
 const TILE_RESOLUTION = 50
+// rotation rate, in radians per frame
+const ROTATION_SPEED = 0.05
+// amount to increase/decrease speed per key press (q / a)
+// measured in meters/second
+const ACCELERATION = 50
+const TILE_POINT_COUNT = 256
+const TILE_SIZE = TILE_RESOLUTION * TILE_POINT_COUNT
 
 function rangeMapper([x, y]) {
   let tileset
@@ -52,38 +57,22 @@ function rangeMapper([x, y]) {
 function coordinateToScene([x, y], tile) {
   const tileX = x - tile.x
   const tileY = y - tile.y
-
   return { x: tileX, y: tileY }
 }
-
-// rotation rate, in radians per frame
-const ROTATION_SPEED = 0.05
-
-// amount to increase/decrease speed per key press (q / a)
-// measured in meters/second
-const ACCELERATION = 50
-
-const TILE_POINT_COUNT = 256
-const TILE_SIZE = TILE_RESOLUTION * TILE_POINT_COUNT
 
 export default class ThreeModule {
   constructor(ref, originCoordinate) {
     // Set initial speed to zero
     this.speed = 0
-
     // Store a time stamp when a new rendering starts
     this.frametime = 0
-
     // Store a time stamp from the previous rendering
     this.previousFrameTime = 0
-
     // In three.js, everything to be drawn must be added to the Scene object
     this.scene = new THREE.Scene()
-
     // Define a general white light covering the entire scene
     this.ambientLight = new THREE.AmbientLight(0xffffff)
     this.scene.add(this.ambientLight)
-
     // Define the camera - having a 45 degree field of view
     // and an aspect ratio matching the aspect of the browser window
     // and with a near limit of 10 and and far limit of 40000
@@ -93,51 +82,33 @@ export default class ThreeModule {
       10,
       40000
     )
-
     // Define the initial camera position (x, y, z)
     this.camera.position.set(5000, 5000, 1000)
-
     // Fix up the camera coordinate conventions - so that the
     // x and y coordinates run along the surface of our terrain
     // and z describes the height
     this.camera.rotateX(Math.PI / 2)
     this.camera.up = new THREE.Vector3(0, 0, 1)
-
     // Set up WebGL and attach a canvas element to the DOM
     this.renderer = new THREE.WebGLRenderer()
-
     // Set a background color: Simulate sky blue
     const skyColor = new THREE.Color(0.5, 0.6, 0.8)
     this.renderer.setClearColor(skyColor, 1)
-
     // Set the canvas element to be full screen
     this.renderer.setSize(window.innerWidth, window.innerHeight)
-
     // Adjust pixel size for retina screens
     this.renderer.setPixelRatio(window.devicePixelRatio)
-
-    // Add horizon
     this.createHorizon(skyColor)
-
     // Add the canvas element Three.js renders to onto the DOM
     ref.current.appendChild(this.renderer.domElement)
-
     // Bind the resize handler function before using it
     this.resizeHandler = this.resizeHandler.bind(this)
-
     // Attach the resize handler function to the event
     window.addEventListener('resize', this.resizeHandler, false)
-
     // Bind the keyborard handler function before using it
     this.keyboardHandler = this.keyboardHandler.bind(this)
-
     // Attach the keyboard handler function to the event
     window.addEventListener('keydown', this.keyboardHandler, false)
-
-    // Uncomment this code to render three lines on the screen, each describing the x, y and z axes
-    // const helper = new THREE.AxesHelper(1000)
-    // this.scene.add(helper)
-
     // Find the tile and tileset originCoordinate is on
     const tile = originCoordinate
       ? rangeMapper(originCoordinate)
@@ -159,16 +130,12 @@ export default class ThreeModule {
         }
       }
     }
-
     if (originCoordinate) {
       const targetCoordinate = coordinateToScene(originCoordinate, tile)
       this.createSign(targetCoordinate, tile.tileset.text)
       // Turn camera to look at sign
       this.camera.lookAt(new THREE.Vector3(targetCoordinate.x, targetCoordinate.y, 0))
     }
-
-
-    // Bind the animate function before using it
     this.animate = this.animate.bind(this)
     this.animate()
   }
@@ -178,17 +145,12 @@ export default class ThreeModule {
       TILE_SIZE * 10,
       TILE_SIZE * 10
     )
-
     const material = new THREE.MeshLambertMaterial(
       { color: new THREE.Color(0.45, 0.5, 0.7) }
     )
-
     const horizon = new THREE.Mesh(geometry, material)
-    // Put the horizon below the terrain
     horizon.position.set(0, 0, -100)
     this.scene.add(horizon)
-
-    // Fade the horizon with fog based on camera distance
     const near = TILE_SIZE
     const far = TILE_SIZE * 3
     this.scene.fog = new THREE.Fog(skyColor, near, far)
