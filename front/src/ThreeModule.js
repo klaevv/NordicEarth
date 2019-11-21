@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 import * as THREE from 'three'
 
 const defaultCoordinate = [91250, 6973750]
@@ -32,6 +34,9 @@ const tilesets = [
   }
 ]
 
+// tile definition, depends on the topography and texture input data
+const TILE_RESOLUTION = 50
+
 function rangeMapper([x, y]) {
   let tileset
   for (const ts of tilesets) {
@@ -58,8 +63,6 @@ const ROTATION_SPEED = 0.05
 // measured in meters/second
 const ACCELERATION = 50
 
-// tile definition, depends on the topography and texture input data
-const TILE_RESOLUTION = 50
 const TILE_POINT_COUNT = 256
 const TILE_SIZE = TILE_RESOLUTION * TILE_POINT_COUNT
 
@@ -139,17 +142,23 @@ export default class ThreeModule {
     const tile = originCoordinate
       ? rangeMapper(originCoordinate)
       : rangeMapper(defaultCoordinate)
-    console.log(`Loading tile ${tile.x}-${tile.y} from ${tile.tileset.id}`)
+
     this.createTile(tile, { x: 0, y: 0 })
     // Add neighbour tiles if they exist
     for (const x of [-1, 0, 1]) {
       for (const y of [-1, 0, 1]) {
         if (x !== 0 || y !== 0) {
-          this.createTile({...tile, x: tile.x + x*TILE_RESOLUTION*255, y: tile.y + y*TILE_RESOLUTION*255}, {x,y})
+          this.createTile(
+            {
+              ...tile,
+              x: tile.x + x * TILE_RESOLUTION * 255,
+              y: tile.y + y * TILE_RESOLUTION * 255
+            },
+            { x, y }
+          )
         }
       }
     }
-    
 
     if (originCoordinate) {
       const targetCoordinate = coordinateToScene(originCoordinate, tile)
@@ -161,16 +170,18 @@ export default class ThreeModule {
 
     // Bind the animate function before using it
     this.animate = this.animate.bind(this)
-    this.animate() 
+    this.animate()
   }
 
   createHorizon(skyColor) {
     const geometry = new THREE.PlaneBufferGeometry(
-      TILE_SIZE*10,
-      TILE_SIZE*10
+      TILE_SIZE * 10,
+      TILE_SIZE * 10
     )
 
-    const material = new THREE.MeshLambertMaterial({color: new THREE.Color(0.45, 0.5, 0.7)})
+    const material = new THREE.MeshLambertMaterial(
+      { color: new THREE.Color(0.45, 0.5, 0.7) }
+    )
 
     const horizon = new THREE.Mesh(geometry, material)
     // Put the horizon below the terrain
@@ -179,7 +190,7 @@ export default class ThreeModule {
 
     // Fade the horizon with fog based on camera distance
     const near = TILE_SIZE
-    const far = TILE_SIZE*3
+    const far = TILE_SIZE * 3
     this.scene.fog = new THREE.Fog(skyColor, near, far)
   }
 
@@ -210,8 +221,8 @@ export default class ThreeModule {
 
     // By default, the center point for a Mesh is placed at (0, 0, 0)
     // Here we move the mesh so the lower left corner is at (0, 0, 0) instead
-    const centerX = origin.x*(TILE_SIZE) + (TILE_SIZE) / 2
-    const centerY = origin.y*(TILE_SIZE) + (TILE_SIZE) / 2
+    const centerX = origin.x * (TILE_SIZE) + (TILE_SIZE) / 2
+    const centerY = origin.y * (TILE_SIZE) + (TILE_SIZE) / 2
     ground.position.set(centerX, centerY, 0)
 
     // Initiate loading the photo texture from the jpg file
@@ -233,16 +244,16 @@ export default class ThreeModule {
     // Create the sign
     const signPosition = coordinate
     // how tall the sign is
-    const billboardElevation = 500
+    const bbElevation = 500
     // how wide the pole is
     const billboardPoleWidth = 14
 
-    ////// START UGLY BILLBOARD HACK
+    // START UGLY BILLBOARD HACK
 
     this.text = text
 
-    const billboardPixelHeight = 66
-    const billboardLineWidth = 8
+    const bbPixelHeight = 66
+    const bbLineWidth = 8
     const billboardFont = 'bold 40px Helvetica'
     const billboardPixelWidthPadding = 60
     const billboardPixelMinimumWidth = 140
@@ -301,13 +312,13 @@ export default class ThreeModule {
     }
 
     // draw border onto billboard
-    this.ctx.lineWidth = billboardLineWidth
+    this.ctx.lineWidth = bbLineWidth
     this.ctx.strokeStyle = 'white'
     this.ctx.strokeRect(
       this.textureCanvas.width / 2 - billboardPixelWidth / 2,
-      this.textureCanvas.height / 2 - billboardPixelHeight / 2,
+      this.textureCanvas.height / 2 - bbPixelHeight / 2,
       billboardPixelWidth,
-      billboardPixelHeight
+      bbPixelHeight
     )
 
     // use canvas contents as texture
@@ -327,7 +338,7 @@ export default class ThreeModule {
     billboard.position.set(
       signPosition.x,
       signPosition.y,
-      billboardElevation
+      bbElevation
     )
     billboard.up = new THREE.Vector3(0, 0, 1)
 
@@ -339,12 +350,12 @@ export default class ThreeModule {
 
     this.scene.add(billboard)
 
-    ////// END UGLY BILLBOARD HACK
+    // END UGLY BILLBOARD HACK
 
     const poleGeometry = new THREE.BoxBufferGeometry(
       billboardPoleWidth,
       billboardPoleWidth,
-      billboardElevation
+      bbElevation
     )
     const poleMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff })
 
@@ -353,9 +364,7 @@ export default class ThreeModule {
     pole.position.set(
       signPosition.x,
       signPosition.y,
-      billboardElevation / 2 -
-        (billboardPixelHeight * textureScale) / 2 -
-        (billboardLineWidth * textureScale) / 2
+      bbElevation / 2 - (bbPixelHeight * textureScale) / 2 - (bbLineWidth * textureScale) / 2
     )
 
     this.scene.add(pole)
@@ -367,7 +376,7 @@ export default class ThreeModule {
 
     requestAnimationFrame(this.animate)
 
-    let cameraDirection = new THREE.Vector3()
+    const cameraDirection = new THREE.Vector3()
     this.camera.getWorldDirection(cameraDirection)
     this.camera.position.addScaledVector(
       cameraDirection,
