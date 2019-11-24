@@ -1,32 +1,32 @@
 /* eslint-disable no-undef */
 
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import { render, cleanup } from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
 import { BrowserRouter as Router } from 'react-router-dom'
 
-import HomePage from './HomePage'
+import KeyCommandsPage from './KeyCommandsPage'
 
 afterEach(cleanup)
 
 test('renders title', () => {
   const component = render(
     <Router>
-      <HomePage />
+      <KeyCommandsPage />
     </Router>
   )
   expect(component.container).toHaveTextContent(
-    'Experience the magic of Nordic Earth'
+    'Key commands for the map'
   )
 })
 
 test('renders list item', () => {
   const component = render(
     <Router>
-      <HomePage />
+      <KeyCommandsPage />
     </Router>
   )
   expect(component.container).toHaveTextContent(
-    'You can also make cool CGI panoramic content for your videos or articles.'
+    'z rotates the camera left'
   )
 })

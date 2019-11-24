@@ -1,32 +1,32 @@
 /* eslint-disable no-undef */
 
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import { render, cleanup } from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
 import { BrowserRouter as Router } from 'react-router-dom'
 
-import HomePage from './HomePage'
+import InstructionsPage from './InstructionsPage'
 
 afterEach(cleanup)
 
 test('renders title', () => {
   const component = render(
     <Router>
-      <HomePage />
+      <InstructionsPage />
     </Router>
   )
   expect(component.container).toHaveTextContent(
-    'Experience the magic of Nordic Earth'
+    'Do it yourself'
   )
 })
 
 test('renders list item', () => {
   const component = render(
     <Router>
-      <HomePage />
+      <InstructionsPage />
     </Router>
   )
   expect(component.container).toHaveTextContent(
-    'You can also make cool CGI panoramic content for your videos or articles.'
+    'Use gdalinfo to extract information about files, and to see whether GDAL can understand the file.'
   )
 })

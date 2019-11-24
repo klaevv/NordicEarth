@@ -12,11 +12,11 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Route path="/bonusmap" component={BonusMap} />
-        <Route path="/instructions" component={InstructionsPage} />
-        <Route path="/maps" component={MapPage} />
-        <Route path="/keys" component={KeyCommandsPage} />
         <Route exact path="/" component={HomePage} />
+        <Route path="/instructions" component={InstructionsPage} />
+        <Route path="/keys" component={KeyCommandsPage} />
+        <Route path="/maps" component={MapPage} />
+        <Route path="/bonusmap" component={BonusMap} />
       </Router>
     </div>
   )
