@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom'
 
 import './HomePage.scss'
-import Header from '../Header'
+import Header from '../header/Header'
 import team1Image from '../assets/team1.png'
 import team2Image from '../assets/team2.png'
 import hmGif from '../assets/hm-wireframe.gif'
@@ -31,7 +31,7 @@ function HomePage() {
           <br />
           <br />
           <br />
-          <Link to="/bonusmap">
+          <Link to="/BonusMapPage">
             <img alt="geniuses 2" src={team2Image} />
           </Link>
         </div>

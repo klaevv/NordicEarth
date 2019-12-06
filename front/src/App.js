@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import './App.css'
-import BonusMap from './pages/BonusMap'
+import BonusMapPage from './pages/BonusMapPage'
 import MapPage from './pages/MapPage'
 import InstructionsPage from './pages/InstructionsPage'
 import HomePage from './pages/HomePage'
@@ -16,7 +16,7 @@ function App() {
         <Route path="/instructions" component={InstructionsPage} />
         <Route path="/keys" component={KeyCommandsPage} />
         <Route path="/maps" component={MapPage} />
-        <Route path="/bonusmap" component={BonusMap} />
+        <Route path="/BonusMapPage" component={BonusMapPage} />
       </Router>
     </div>
   )

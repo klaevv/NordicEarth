@@ -1,7 +1,7 @@
 import React from 'react'
 
 import './KeyCommandsPage.scss'
-import Header from '../Header'
+import Header from '../header/Header'
 
 function KeyCommands() {
   return (

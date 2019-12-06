@@ -1,7 +1,7 @@
 import React from 'react'
 
 import './InstructionsPage.scss'
-import Header from '../Header'
+import Header from '../header/Header'
 
 /* eslint-disable max-len */
 

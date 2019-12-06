@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import proj4 from 'proj4'
-import ThreeModule from '../ThreeModule'
+import ThreeModule from '../utils/ThreeModule'
 
 class MapPage extends Component {
   constructor(props) {
