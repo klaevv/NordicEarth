@@ -31,7 +31,7 @@ function HomePage() {
           <br />
           <br />
           <br />
-          <Link to="/BonusMapPage">
+          <Link to="/bonusmap">
             <img alt="geniuses 2" src={team2Image} />
           </Link>
         </div>

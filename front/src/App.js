@@ -16,7 +16,7 @@ function App() {
         <Route path="/instructions" component={InstructionsPage} />
         <Route path="/keys" component={KeyCommandsPage} />
         <Route path="/maps" component={MapPage} />
-        <Route path="/BonusMapPage" component={BonusMapPage} />
+        <Route path="/bonusmap" component={BonusMapPage} />
       </Router>
     </div>
   )
