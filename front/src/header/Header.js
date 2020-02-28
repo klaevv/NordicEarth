@@ -1,9 +1,16 @@
-import React from 'react'
-import {
-  Link
-} from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+
+import coordinatesService from '../services/coordinatesService'
 
 function Header() {
+  const [coordinates, setCoordinates] = useState([])
+  useEffect(() => {
+    coordinatesService.getAll().then((response) => {
+      setCoordinates(response)
+    })
+  }, [])
+
   return (
     <div className="top_navigation">
       <h1>NORDIC EARTH</h1>
@@ -11,9 +18,11 @@ function Header() {
         <Link to="/">Home</Link>
         <Link to="/instructions">DIY</Link>
         <Link to="/keys">Keys</Link>
-        <Link to="/maps?gps=62.738868,7.150271">Molde</Link>
-        <Link to="/maps?gps=59.357826,17.785493">Stockholm</Link>
-        <Link to="/maps?gps=55.668677,12.073107">Roskilde</Link>
+        {coordinates.map((coordinate) => (
+          <Link key={coordinate.id} to={`/maps?gps=${coordinate.gps}`}>
+            {coordinate.locationName}
+          </Link>
+        ))}
       </div>
     </div>
   )

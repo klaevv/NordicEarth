@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import './App.css'
@@ -7,16 +7,8 @@ import MapPage from './pages/MapPage'
 import InstructionsPage from './pages/InstructionsPage'
 import HomePage from './pages/HomePage'
 import KeyCommandsPage from './pages/KeyCommandsPage'
-import coordinatesService from './services/coordinatesService'
 
 function App() {
-  const [coordinates, setCoordinates] = useState([])
-  useEffect(() => {
-    coordinatesService.getAll().then((response) => {
-      setCoordinates(response) // does not work yet!
-    })
-  })
-
   return (
     <div className="App">
       <Router>
