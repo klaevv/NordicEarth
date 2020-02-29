@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-
+import { connect } from 'react-redux'
+import { coordinatesSelector } from '../selectors/coordinatesSelector'
+import { getCoordinatesSuccessAction } from '../actions/coordinatesActions'
 import coordinatesService from '../services/coordinatesService'
 
-function Header() {
-  const [coordinates, setCoordinates] = useState([])
+function Header(props) {
+  const { coordinates, setCoordinates } = props
+
   useEffect(() => {
-    coordinatesService.getAll().then((response) => {
-      setCoordinates(response)
+    coordinatesService.getAll().then((coordinates) => {
+      setCoordinates(coordinates)
     })
   }, [])
 
@@ -28,4 +31,20 @@ function Header() {
   )
 }
 
-export default Header
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCoordinates: (coordinates) => {
+      dispatch(getCoordinatesSuccessAction(coordinates))
+    }
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    coordinates: coordinatesSelector(state)
+  }
+}
+
+const ConnectedHeader = connect(mapStateToProps, mapDispatchToProps)(Header)
+
+export default ConnectedHeader
