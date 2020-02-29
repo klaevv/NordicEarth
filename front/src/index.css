@@ -46,3 +46,9 @@ code {
   top: 26px;
   right: 20px;
 }
+
+.loader {
+  position: absolute;
+  top: 5px;
+  right: 0px;
+}

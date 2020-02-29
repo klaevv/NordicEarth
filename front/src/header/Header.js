@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { coordinatesSelector } from '../selectors/coordinatesSelector'
+import PropTypes from 'prop-types'
+import Loader from 'react-loader-spinner'
+
+import { coordinatesSelector, isLoadingSelector } from '../selectors/coordinatesSelector'
 import { getCoordinatesSuccessAction } from '../actions/coordinatesActions'
 import coordinatesService from '../services/coordinatesService'
 
 function Header(props) {
-  const { coordinates, setCoordinates } = props
+  const { coordinates, isLoading, setCoordinates } = props
+
+  const getCoordinates = () => {
+    coordinatesService.getAll().then((response) => {
+      setCoordinates(response)
+    })
+  }
 
   useEffect(() => {
-    coordinatesService.getAll().then((coordinates) => {
-      setCoordinates(coordinates)
-    })
+    getCoordinates()
   }, [])
 
   return (
@@ -21,7 +28,16 @@ function Header(props) {
         <Link to="/">Home</Link>
         <Link to="/instructions">DIY</Link>
         <Link to="/keys">Keys</Link>
-        {coordinates.map((coordinate) => (
+        {isLoading && (
+          <Loader
+            className="loader"
+            type="TailSpin"
+            color="#00BFFF"
+            height={40}
+            width={40}
+          />
+        )}
+        {!isLoading && coordinates.map((coordinate) => (
           <Link key={coordinate.id} to={`/maps?gps=${coordinate.gps}`}>
             {coordinate.locationName}
           </Link>
@@ -31,19 +47,22 @@ function Header(props) {
   )
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setCoordinates: (coordinates) => {
-      dispatch(getCoordinatesSuccessAction(coordinates))
-    }
-  }
+Header.propTypes = {
+  coordinates: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  setCoordinates: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired
 }
 
-const mapStateToProps = (state) => {
-  return {
-    coordinates: coordinatesSelector(state)
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  setCoordinates: (coordinates) => (
+    dispatch(getCoordinatesSuccessAction(coordinates))
+  )
+})
+
+const mapStateToProps = (state) => ({
+  coordinates: coordinatesSelector(state),
+  isLoading: isLoadingSelector(state)
+})
 
 const ConnectedHeader = connect(mapStateToProps, mapDispatchToProps)(Header)
 

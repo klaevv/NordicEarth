@@ -1,20 +1,20 @@
 import { GET_COORDINATES_SUCCESS } from '../constants/actionTypes'
 
 const initialState = {
-  coordinates: []
+  coordinates: [],
+  isLoading: true
 }
 
 const coordinatesReducer = (state = initialState, action) => {
-  console.log(action)
   switch (action.type) {
     case GET_COORDINATES_SUCCESS:
       return {
-        coordinates: action.coordinates
+        coordinates: action.coordinates,
+        isLoading: false
       }
     default:
       return state
   }
-  return state
 }
 
 export default coordinatesReducer
