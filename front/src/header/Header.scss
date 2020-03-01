@@ -1,0 +1,39 @@
+.header {
+  text-align: left;
+  background-color: rgba(2, 82, 156, 0.5);
+  position: relative;
+  border-bottom: 4px solid #dc1e35;
+
+  .top_navigation_links {
+    position: absolute;
+    top: 26px;
+    right: 20px;
+  }
+
+  .loader {
+    position: absolute;
+    top: 5px;
+    right: 0px;
+  }
+
+  h1 {
+    color: #f7f7f2;
+    display: inline-block;
+    margin: 30px;
+  }
+
+  a {
+    background-color: transparent;
+    padding: 6px 12px;
+    display: inline-block;
+    margin: 10px;
+    color: #f7f7f2;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 14px;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 2px solid #f7f7f2;
+  }
+}

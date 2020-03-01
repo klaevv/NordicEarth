@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import proj4 from 'proj4'
-import ThreeModule from '../utils/ThreeModule'
+import ThreeModule from '../../utils/ThreeModule'
 
 class MapPage extends Component {
   constructor(props) {
@@ -14,8 +14,11 @@ class MapPage extends Component {
     let coordinate
     if (gpsParam) {
       const [north, east] = gpsParam.split(',').map((str) => parseFloat(str))
-      const secondProjection = '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs '
-      coordinate = proj4('EPSG:4326', secondProjection).forward([east, north]).map((float) => Math.round(float))
+      const secondProjection =
+        '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs '
+      coordinate = proj4('EPSG:4326', secondProjection)
+        .forward([east, north])
+        .map((float) => Math.round(float))
     }
     new ThreeModule(this.mapRef, coordinate) // eslint-disable-line no-new
   }

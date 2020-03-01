@@ -2,11 +2,11 @@ import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import './App.css'
-import BonusMapPage from './pages/BonusMapPage'
-import MapPage from './pages/MapPage'
-import InstructionsPage from './pages/InstructionsPage'
-import HomePage from './pages/HomePage'
-import KeyCommandsPage from './pages/KeyCommandsPage'
+import BonusMapPage from './pages/BonusMapPage/BonusMapPage'
+import MapPage from './pages/MapPage/MapPage'
+import InstructionsPage from './pages/InstructionsPage/InstructionsPage'
+import HomePage from './pages/HomePage/HomePage'
+import KeyCommandsPage from './pages/KeyCommandsPage/KeyCommandsPage'
 
 function App() {
   return (
