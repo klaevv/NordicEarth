@@ -2,7 +2,7 @@
 
 Nordic Earth aims to do cool stuff with 3D maps
 
-# Työaikakirjanpito (yhteensä 38 tuntia)
+# Työaikakirjanpito (yhteensä 43 tuntia)
 
 | pvm    | tunnit | mitä tein                                                         |
 | ------ | ------ | ----------------------------------------------------------------- |
@@ -16,3 +16,4 @@ Nordic Earth aims to do cool stuff with 3D maps
 | 28.2.  | 3      | CORS–debuggailua + Bäkkärin ja frontin integroimista              |
 | 29.2.  | 7      | react-reduxin tunkkailua + tyylittelyä/refaktorointia             |
 | 1.3.   | 3      | css-tyylittelyä ja projektin rakenteen refaktorointia             |
+| 2.3.   | 5      | navigaatio-staten ja tyylien koodailua                            |

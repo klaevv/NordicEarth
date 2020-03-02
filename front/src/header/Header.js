@@ -72,7 +72,9 @@ function Header(props) {
 Header.propTypes = {
   coordinates: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   setCoordinates: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  navigate: PropTypes.func.isRequired,
+  currentRoute: PropTypes.string.isRequired
 }
 
 const mapDispatchToProps = (dispatch) => ({
