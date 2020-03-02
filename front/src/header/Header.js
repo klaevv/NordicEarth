@@ -8,10 +8,11 @@ import { coordinatesSelector, isLoadingSelector } from '../selectors/coordinates
 import { getCoordinatesSuccessAction } from '../actions/coordinatesActions'
 import { navigateAction } from '../actions/navigationActions'
 import coordinatesService from '../services/coordinatesService'
+import { currentRouteSelector } from '../selectors/NavigationSelector'
 import './Header.scss'
 
 function Header(props) {
-  const { coordinates, isLoading, setCoordinates, navigate } = props
+  const { coordinates, isLoading, setCoordinates, navigate, currentRoute } = props
 
   const getCoordinates = () => {
     coordinatesService.getAll().then((response) => {
@@ -27,17 +28,31 @@ function Header(props) {
     navigate(nextRoute)
   }
 
+  const selectedLinkStyle = { backgroundColor: '#FFF', color: '#000' }
+
   return (
     <div className="header">
       <h1>NORDIC EARTH</h1>
       <div className="top_navigation_links">
-        <Link to="/" onClick={() => setRoute('home')}>
+        <Link
+          style={currentRoute === 'home' ? selectedLinkStyle : {}}
+          to="/"
+          onClick={() => setRoute('home')}
+        >
           Home
         </Link>
-        <Link to="/instructions" onClick={() => setRoute('diy')}>
+        <Link
+          style={currentRoute === 'diy' ? selectedLinkStyle : {}}
+          to="/instructions"
+          onClick={() => setRoute('diy')}
+        >
           DIY
         </Link>
-        <Link to="/keys" onClick={() => setRoute('keys')}>
+        <Link
+          style={currentRoute === 'keys' ? selectedLinkStyle : {}}
+          to="/keys"
+          onClick={() => setRoute('keys')}
+        >
           Keys
         </Link>
         {isLoading && (
@@ -67,7 +82,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   coordinates: coordinatesSelector(state),
-  isLoading: isLoadingSelector(state)
+  isLoading: isLoadingSelector(state),
+  currentRoute: currentRouteSelector(state)
 })
 
 const ConnectedHeader = connect(mapStateToProps, mapDispatchToProps)(Header)
