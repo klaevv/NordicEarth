@@ -6,11 +6,12 @@ import Loader from 'react-loader-spinner'
 
 import { coordinatesSelector, isLoadingSelector } from '../selectors/coordinatesSelector'
 import { getCoordinatesSuccessAction } from '../actions/coordinatesActions'
+import { navigateAction } from '../actions/navigationActions'
 import coordinatesService from '../services/coordinatesService'
 import './Header.scss'
 
 function Header(props) {
-  const { coordinates, isLoading, setCoordinates } = props
+  const { coordinates, isLoading, setCoordinates, navigate } = props
 
   const getCoordinates = () => {
     coordinatesService.getAll().then((response) => {
@@ -22,13 +23,23 @@ function Header(props) {
     getCoordinates()
   }, [])
 
+  const setRoute = (nextRoute) => {
+    navigate(nextRoute)
+  }
+
   return (
     <div className="header">
       <h1>NORDIC EARTH</h1>
       <div className="top_navigation_links">
-        <Link to="/">Home</Link>
-        <Link to="/instructions">DIY</Link>
-        <Link to="/keys">Keys</Link>
+        <Link to="/" onClick={() => setRoute('home')}>
+          Home
+        </Link>
+        <Link to="/instructions" onClick={() => setRoute('diy')}>
+          DIY
+        </Link>
+        <Link to="/keys" onClick={() => setRoute('keys')}>
+          Keys
+        </Link>
         {isLoading && (
           <Loader className="loader" type="TailSpin" color="#00BFFF" height={40} width={40} />
         )}
@@ -50,7 +61,8 @@ Header.propTypes = {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setCoordinates: (coordinates) => dispatch(getCoordinatesSuccessAction(coordinates))
+  setCoordinates: (coordinates) => dispatch(getCoordinatesSuccessAction(coordinates)),
+  navigate: (nextRoute) => dispatch(navigateAction(nextRoute))
 })
 
 const mapStateToProps = (state) => ({

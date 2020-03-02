@@ -1,2 +1,2 @@
-export const coordinatesSelector = (state) => state.coordinates
-export const isLoadingSelector = (state) => state.isLoading
+export const coordinatesSelector = (state) => state.coordinatesState.coordinates
+export const isLoadingSelector = (state) => state.coordinatesState.isLoading
