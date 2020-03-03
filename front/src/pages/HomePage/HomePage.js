@@ -2,17 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import './HomePage.scss'
-import Header from '../../header/Header'
 import team1Image from '../../assets/team1.png'
 import team2Image from '../../assets/team2.png'
 import hmGif from '../../assets/hm-wireframe.gif'
 
-/* eslint-disable max-len */
-
 function HomePage() {
   return (
     <div>
-      <Header />
       <div className="HomePage">
         <div className="HomePage_inner">
           <h1>Experience the magic of Nordic Earth</h1>

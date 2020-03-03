@@ -7,11 +7,13 @@ import MapPage from './pages/MapPage/MapPage'
 import InstructionsPage from './pages/InstructionsPage/InstructionsPage'
 import HomePage from './pages/HomePage/HomePage'
 import KeyCommandsPage from './pages/KeyCommandsPage/KeyCommandsPage'
+import Header from './header/Header'
 
 function App() {
   return (
     <div className="App">
       <Router>
+        <Header />
         <Route exact path="/" component={HomePage} />
         <Route path="/instructions" component={InstructionsPage} />
         <Route path="/keys" component={KeyCommandsPage} />

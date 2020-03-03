@@ -1,14 +1,10 @@
 import React from 'react'
 
 import './InstructionsPage.scss'
-import Header from '../../header/Header'
-
-/* eslint-disable max-len */
 
 function InstructionsPage() {
   return (
     <div>
-      <Header />
       <div className="InstructionsPage">
         <div className="InstructionsPage_inner">
           <h1>Do it yourself</h1>

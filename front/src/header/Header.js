@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Loader from 'react-loader-spinner'
+import { withRouter } from 'react-router-dom'
 
 import { coordinatesSelector, isLoadingSelector } from '../selectors/coordinatesSelector'
 import { getCoordinatesSuccessAction } from '../actions/coordinatesActions'
@@ -28,43 +29,61 @@ function Header(props) {
     navigate(nextRoute)
   }
 
+  const exitMap = () => {
+    setRoute('home')
+    props.history.goBack()
+  }
+
   const selectedLinkStyle = { backgroundColor: '#FFF', color: '#000' }
+  const isMapsRoute = !['home', 'diy', 'keys'].includes(currentRoute)
 
   return (
     <div className="header">
       <h1>NORDIC EARTH</h1>
-      <div className="top_navigation_links">
-        <Link
-          style={currentRoute === 'home' ? selectedLinkStyle : {}}
-          to="/"
-          onClick={() => setRoute('home')}
-        >
-          Home
-        </Link>
-        <Link
-          style={currentRoute === 'diy' ? selectedLinkStyle : {}}
-          to="/instructions"
-          onClick={() => setRoute('diy')}
-        >
-          DIY
-        </Link>
-        <Link
-          style={currentRoute === 'keys' ? selectedLinkStyle : {}}
-          to="/keys"
-          onClick={() => setRoute('keys')}
-        >
-          Keys
-        </Link>
-        {isLoading && (
-          <Loader className="loader" type="TailSpin" color="#00BFFF" height={40} width={40} />
-        )}
-        {!isLoading &&
-          coordinates.map((coordinate) => (
-            <Link key={coordinate.id} to={`/maps?gps=${coordinate.gps}`}>
-              {coordinate.locationName}
-            </Link>
-          ))}
-      </div>
+      {isMapsRoute && (
+        <div className="top_navigation_links">
+          <button onClick={exitMap}>Exit map</button>
+        </div>
+      )}
+      {!isMapsRoute && (
+        <div className="top_navigation_links">
+          <Link
+            style={currentRoute === 'home' ? selectedLinkStyle : {}}
+            to="/"
+            onClick={() => setRoute('home')}
+          >
+            Home
+          </Link>
+          <Link
+            style={currentRoute === 'diy' ? selectedLinkStyle : {}}
+            to="/instructions"
+            onClick={() => setRoute('diy')}
+          >
+            DIY
+          </Link>
+          <Link
+            style={currentRoute === 'keys' ? selectedLinkStyle : {}}
+            to="/keys"
+            onClick={() => setRoute('keys')}
+          >
+            Keys
+          </Link>
+          {isLoading && (
+            <Loader className="loader" type="TailSpin" color="#00BFFF" height={40} width={40} />
+          )}
+          {!isLoading &&
+            coordinates.map((coordinate) => (
+              <Link
+                style={currentRoute === coordinate.locationName ? selectedLinkStyle : {}}
+                key={coordinate.id}
+                to={`/maps?gps=${coordinate.gps}`}
+                onClick={() => setRoute(coordinate.locationName)}
+              >
+                {coordinate.locationName}
+              </Link>
+            ))}
+        </div>
+      )}
     </div>
   )
 }
@@ -90,4 +109,4 @@ const mapStateToProps = (state) => ({
 
 const ConnectedHeader = connect(mapStateToProps, mapDispatchToProps)(Header)
 
-export default ConnectedHeader
+export default withRouter(ConnectedHeader)

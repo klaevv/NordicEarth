@@ -1,12 +1,10 @@
 import React from 'react'
 
 import './KeyCommandsPage.scss'
-import Header from '../../header/Header'
 
 function KeyCommands() {
   return (
     <div>
-      <Header />
       <div className="KeyCommandsPage">
         <div className="KeyCommandsPage_inner">
           <h1>Key commands for the map</h1>
