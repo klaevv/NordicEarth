@@ -1,6 +1,7 @@
 import { NAVIGATE } from '../constants/actionTypes'
 
-export const navigateAction = (nextRoute) => ({
+export const navigateAction = (nextRoute, previousRoute) => ({
   type: NAVIGATE,
-  nextRoute
+  nextRoute,
+  previousRoute
 })
