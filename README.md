@@ -1,6 +1,6 @@
 # NordicEarth
 
-Nordic Earth aims to do cool stuff with 3D maps
+Nordic Earth aims to do cool stuff with 3D maps. It uses three.js to render amazing 3D–landscapes from various beautiful Nordic countries. 
 
 Heroku link [here](https://nordic-earth.herokuapp.com)!
 
