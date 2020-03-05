@@ -16,18 +16,18 @@ app.use(requestLogger)
 const coordinates = [
   {
     id: 1,
-    gps: "62.738868,7.150271",
-    locationName: "Molde"
+    gps: '62.738868,7.150271',
+    locationName: 'Molde'
   },
   {
     id: 2,
-    gps: "59.357826,17.785493",
-    locationName: "Stockholm"
+    gps: '59.357826,17.785493',
+    locationName: 'Stockholm'
   },
   {
     id: 3,
-    gps: "55.668677,12.073107",
-    locationName: "Roskilde"
+    gps: '55.668677,12.073107',
+    locationName: 'Roskilde'
   }
 ]
 
@@ -41,7 +41,7 @@ app.get('/api/coordinates', (req, res) => {
 
 app.get('/api/coordinates/:id', (req, res) => {
   const id = Number(req.params.id)
-  const coordinate = coordinates.find(c => c.id === id)
+  const coordinate = coordinates.find((c) => c.id === id)
   if (coordinate) {
     res.json(coordinate)
   } else {
@@ -54,7 +54,7 @@ const unknownEndpoint = (req, res) => {
 }
 app.use(unknownEndpoint)
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
