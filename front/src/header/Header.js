@@ -9,7 +9,7 @@ import { coordinatesSelector, isLoadingSelector } from '../selectors/coordinates
 import { getCoordinatesSuccessAction } from '../actions/coordinatesActions'
 import { navigateAction } from '../actions/navigationActions'
 import coordinatesService from '../services/coordinatesService'
-import { currentRouteSelector, previousRouteSelector } from '../selectors/NavigationSelector'
+import { currentRouteSelector, previousRouteSelector } from '../selectors/navigationSelector'
 import './Header.scss'
 
 function Header(props) {

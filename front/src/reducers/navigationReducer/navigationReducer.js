@@ -1,5 +1,5 @@
-import { NAVIGATE } from '../constants/actionTypes'
-import { HOME } from '../constants/routeNames'
+import { NAVIGATE } from '../../constants/actionTypes'
+import { HOME } from '../../constants/routeNames'
 
 const initialState = {
   currentRoute: HOME,

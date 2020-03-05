@@ -1,4 +1,4 @@
-import { GET_COORDINATES_SUCCESS } from '../constants/actionTypes'
+import { GET_COORDINATES_SUCCESS } from '../../constants/actionTypes'
 
 const initialState = {
   coordinates: [],

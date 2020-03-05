@@ -22,5 +22,15 @@ module.exports = {
     'comma-dangle': ['error', 'never'],
     'react/jsx-one-expression-per-line': 'off',
     'import/prefer-default-export': 'off'
-  }
+  },
+  overrides: [
+    {
+      files: [
+        '**/*.test.js'
+      ],
+      env: {
+        'jest': true
+      }
+    }
+  ]
 }
