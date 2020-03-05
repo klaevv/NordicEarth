@@ -2,7 +2,9 @@
 
 Nordic Earth aims to do cool stuff with 3D maps
 
-# Työaikakirjanpito (yhteensä 51 tuntia)
+Heroku link [here](https://nordic-earth.herokuapp.com)!
+
+# Työaikakirjanpito (yhteensä 53 tuntia)
 
 | pvm    | tunnit | mitä tein                                                         |
 | ------ | ------ | ----------------------------------------------------------------- |
@@ -19,4 +21,4 @@ Nordic Earth aims to do cool stuff with 3D maps
 | 2.3.   | 5      | navigaatio-staten ja tyylien koodailua                            |
 | 3.3.   | 3      | lintterin ja prettierin conffailua + navigaation parantelua       |
 | 4.3.   | 3      | navigaation refaktorointia ja parantelua                          |
-| 5.3.   | 2      | reducerien testit kuntoon                                         |
+| 5.3.   | 4      | reducerien testit kuntoon + sovellus internettiin                 |

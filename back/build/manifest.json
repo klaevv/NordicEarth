@@ -1,0 +1,8 @@
+{
+  "short_name": "Nordic Earth App",
+  "name": "Nordic Earth App",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
